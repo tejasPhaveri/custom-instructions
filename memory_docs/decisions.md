@@ -1,3 +1,8 @@
-# decisions.md
+# Decision Journal
+timestamp: 2025-04-10T16:16:40Z
 
-<!-- Placeholder for decisions.md -->
+## Active Decisions
+<!-- List active decisions here -->
+
+## Historical Decisions
+<!-- List historical decisions here -->

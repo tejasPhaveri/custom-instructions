@@ -1,3 +1,8 @@
-# codeMap_root.md
+# CodeMap Root
+timestamp: 2025-04-10T16:16:13Z
 
-<!-- Placeholder for codeMap_root.md -->
+## PROJECT_STRUCTURE
+<!-- Define your project structure here -->
+
+## FLOW_DIAGRAMS
+<!-- Add your flow diagrams here -->
