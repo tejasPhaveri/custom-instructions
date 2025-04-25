@@ -29,3 +29,8 @@ Add theese mcp servers.
     }
   }
 }
+
+
+Updates
+
+Will implement git to local commit after every task 
