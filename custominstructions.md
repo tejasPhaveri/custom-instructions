@@ -121,6 +121,7 @@ During user interactions or task execution:
 6. **Enhanced with Context7 MCP**: For technical updates, verify information with up-to-date documentation before writing to files, citing retrieval timestamps to ensure accuracy.
 7. **Enhanced with Sequential Thinking MCP**: For complex updates requiring multi-step reasoning, structure the thought process before documenting to ensure clarity and logical consistency.
 8. MAINTAIN a log of updates in `progress.md` with a brief description of changes, timestamps, and affected files for auditability.
+9. **Git Version Control Integration**: After significant updates to project files linked to memory bank updates, trigger the MCP Server Auto Commit tool to commit changes locally as per `GIT_VERSION_CONTROL_PROTOCOL`. Ensure commit messages reference relevant `TASK_ID` or `#ID` for traceability.
 ```
 <!-- CONTEXT_END: core_files -->
 
@@ -638,16 +639,19 @@ When all subtasks are completed:
    - MOVE task file to tasks/archive/
    - UPDATE task_registry.md with archive location
    - RETAIN only summary in active memory
+
+6. **Git Version Control Integration**: Trigger the MCP Server Auto Commit tool to commit changes related to the completed task if they involve updates to the user's project files, as per `GIT_VERSION_CONTROL_PROTOCOL`. Ensure the commit message includes the `TASK_ID` and a summary of the task completion for traceability.
 ```
 
 ### Git Version Control Protocol with MCP Server Auto Commit
 ```markdown
 ## GIT_VERSION_CONTROL_PROTOCOL
-To enhance version control and traceability within the Ultimate Memory Bank System:
+To enhance version control and traceability for the user's project within the Ultimate Memory Bank System:
 
-1. INITIALIZE Git repository for memory bank documentation if not already initialized:
-   - Ensure all memory bank files (e.g., `task_registry.md`, `decisions.md`, `progress.md`) are tracked in a local Git repository.
-   - If no repository exists, initialize one in the root directory of the memory bank with `git init`.
+1. INITIALIZE Git repository for the user's project if not already initialized:
+   - Ensure the user's project files are tracked in a local Git repository.
+   - If no repository exists, initialize one in the root directory of the user's project with `git init`, upon user confirmation.
+   - **Scope Clarification**: This repository is exclusively for the user's project files and does not include memory bank documentation files unless explicitly requested by the user.
 
 2. INTEGRATE MCP Server Auto Commit:
    - Install and configure the MCP Server Auto Commit tool (`jatinsandilya/mcp-server-auto-commit`) as an MCP server in the system.
@@ -656,10 +660,19 @@ To enhance version control and traceability within the Ultimate Memory Bank Syst
    - Configuration: Add to MCP servers in the system configuration with appropriate command and arguments (e.g., `node build/index.js --key <api-key>`).
 
 3. TRIGGER Automatic Local Commits:
-   - After completing a subtask or making significant updates to memory bank files (as per `REAL_TIME_UPDATE_PROTOCOL`), invoke the MCP Server Auto Commit tool.
-   - Tool Action: Use `git-changes-commit-message` with optional `autoCommitPath` parameter to specify directory if needed.
+   - After completing a subtask, task, or making significant updates to project files, invoke the MCP Server Auto Commit tool.
+   - Integration Points:
+     - **REAL_TIME_UPDATE_PROTOCOL**: Commit after significant updates to project files when they are linked to memory bank updates.
+     - **TASK_CLEANUP_PROTOCOL**: Commit after task completion if the task involves changes to project files, with task-specific details.
+     - **ANALYZE_MODE**: Commit after analysis if it results in changes to project files.
+     - **PLAN_MODE**: Commit after planning if it results in updates to project files.
+     - **EXECUTE_MODE**: Commit after implementation changes to project files.
+     - **DEBUG_MODE**: Commit after documenting fixes in project files.
+     - **EXTEND_MODE**: Commit after adding new components or features to project files.
+   - Tool Action: Use `git-changes-commit-message` with optional `autoCommitPath` parameter to specify the project directory if needed.
    - Outcome: The tool analyzes changes (modified, added, deleted files), generates a conventional commit message using GPT-4o-mini, and commits locally with an auto-commit signature.
-   - Commit Message Format: Ensure messages follow conventional commits (e.g., `feat(TASK_001): update task registry with completion status`), including relevant `TASK_ID` or `#ID` for traceability.
+   - Commit Message Format: Ensure messages follow conventional commits (e.g., `feat(TASK_001): implement user authentication feature`), including relevant `TASK_ID` or `#ID` for traceability.
+   - **Scope Clarification**: Commits are made only to the user's project files and do not affect memory bank documentation files unless explicitly requested and configured by the user.
 
 4. ENSURE Local-Only Operation:
    - Configure the system to ensure commits are made only to the local repository.
@@ -672,81 +685,6 @@ To enhance version control and traceability within the Ultimate Memory Bank Syst
 6. **Enhanced with Sequential Thinking MCP**: If commit message generation or change analysis is complex, use structured reasoning to ensure the message accurately reflects the scope and impact of changes.
 
 7. **User Notification**: Inform the user of commits made in interaction summaries or status reports, allowing review if needed.
-```
-
-### Task Loading Protocol
-
-```markdown
-## TASK_LOADING_PROTOCOL
-- NEVER load all task documents automatically
-- Only load task_registry.md when orchestrating tasks
-- Only load specific task document when explicitly working on that task
-- NEVER load archived tasks unless specifically requested
-- When switching subtasks, PURGE previous subtask details
-```
-
-## User Interaction Patterns
-
-### Clarification Request Framework
-
-```markdown
-## CLARIFICATION_REQUEST
-I need additional information to proceed effectively:
-
-1. SPECIFIC QUESTION: [Clear, focused question about requirements/approach]
-
-2. IMPACT: This information will help me [specific benefit to implementation]
-
-3. CURRENT UNDERSTANDING: Based on available context, I believe [current assumption]
-
-4. ALTERNATIVE APPROACHES: If this information isn't available, I could:
-   - [Option 1 with trade-offs]
-   - [Option 2 with trade-offs]
-```
-
-### Progress Sharing Format
-
-```markdown
-## IMPLEMENTATION_STATUS [Confidence: HIGH|MEDIUM|LOW]
-- COMPLETED: 
-  - [list of completed components with #IDs]
-  - [key functionality implemented]
-
-- IN PROGRESS: 
-  - [current focus with % complete]
-  - [expected completion]
-
-- PENDING: 
-  - [next steps in order of priority]
-
-- BLOCKERS: 
-  - [issues requiring attention]
-  - [potential solutions or workarounds]
-```
-
-## Workflow Protocols
-
-### Analyze Mode
-
-```mermaid
-flowchart TD
-    Start[Start Analysis] --> Activate[ACTIVATE codeMap_root.md]
-    Activate --> Identify[IDENTIFY affected components]
-    Identify --> Boundary{Complex task?}
-    Boundary -->|Yes| LoadIndex[ACTIVATE relevant indexes]
-    Boundary -->|No| DirectCheck[CHECK codeMap PROJECT_STRUCTURE]
-    LoadIndex --> Checkpoint1[CHECKPOINT: Verify components]
-    DirectCheck --> Checkpoint1
-    Checkpoint1 --> FlowCheck[CHECK FLOW_DIAGRAMS]
-    FlowCheck --> DecisionCheck[CHECK relevant decisions]
-    DecisionCheck --> TechVerify[VERIFY technical details with Context7 MCP]
-    TechVerify --> ComplexReason{Complex reasoning needed?}
-    ComplexReason -->|Yes| SeqThink[USE Sequential Thinking MCP]
-    ComplexReason -->|No| Validate[VALIDATE understanding]
-    SeqThink --> Validate
-    Validate --> ConfidenceAssess[ASSESS confidence level]
-    ConfidenceAssess --> UpdateDocs[UPDATE memory bank per REAL_TIME_UPDATE_PROTOCOL]
-    UpdateDocs --> Report[Report with #IDs and confidence]
 ```
 
 **Protocol details:**
@@ -765,37 +703,7 @@ flowchart TD
 11. ASSESS confidence in analysis findings, boosted by MCP tool usage where applicable
 12. UPDATE memory bank files as per REAL_TIME_UPDATE_PROTOCOL
 13. REPORT findings with confidence level
-```
-
-### Plan Mode
-
-```mermaid
-flowchart TD
-    Start[Start Planning] --> Activate[ACTIVATE codeMap_root.md]
-    Activate --> Identify[IDENTIFY affected components]
-    Identify --> Assess[ASSESS task complexity]
-    Assess --> Complex{Complex task?}
-    Complex -->|Yes| Suggest[SUGGEST task decomposition]
-    Complex -->|No| Standard[SET TASK_BOUNDARY]
-    Suggest --> UserDecision{User approves?}
-    UserDecision -->|Yes| Decompose[DECOMPOSE using task framework]
-    UserDecision -->|No| Standard
-    Standard --> LoadIndex[ACTIVATE relevant indexes]
-    Decompose --> CreateTask[CREATE task documentation]
-    CreateTask --> RegisterTask[UPDATE task_registry.md]
-    RegisterTask --> Return[RETURN to parent task]
-    LoadIndex --> Checkpoint1[CHECKPOINT: Verify components]
-    Checkpoint1 --> TechVerify[VERIFY tech details with Context7 MCP]
-    TechVerify --> TraceFlow[TRACE execution paths]
-    TraceFlow --> IdentifyDeps[IDENTIFY dependencies]
-    IdentifyDeps --> CheckDecisions[CHECK related decisions]
-    CheckDecisions --> ComplexReason{Complex reasoning?}
-    ComplexReason -->|Yes| SeqThink[USE Sequential Thinking MCP]
-    ComplexReason -->|No| BreakTask[BREAK task into steps]
-    SeqThink --> BreakTask
-    BreakTask --> Checkpoint2[CHECKPOINT: Verify plan]
-    Checkpoint2 --> AssessConfidence[ASSESS plan confidence]
-    AssessConfidence --> UpdateDocs[UPDATE memory bank per REAL_TIME_UPDATE_PROTOCOL]
+14. **Git Version Control Integration**: Trigger local commit of analysis updates if they result in changes to the user's project files, as per `GIT_VERSION_CONTROL_PROTOCOL`, ensuring commit messages reference relevant `#ID` or `TASK_ID`.
 ```
 
 **Protocol details:**
@@ -821,24 +729,7 @@ flowchart TD
 15. ASSESS confidence level for each major part of the plan, enhanced by MCP tool usage
 16. UPDATE memory bank files as per REAL_TIME_UPDATE_PROTOCOL
 17. PRESENT plan with confidence assessment
-```
-
-### Execute Mode
-
-```mermaid
-flowchart TD
-    Start[Start Execution] --> Activate[ACTIVATE codeMap_root.md]
-    Activate --> Locate[LOCATE target files]
-    Locate --> Boundary[SET TASK_BOUNDARY]
-    Boundary --> LoadIndex[ACTIVATE relevant indexes]
-    LoadIndex --> Dependency[BUILD dependency graph]
-    Dependency --> TechVerify[VERIFY tech details with Context7 MCP]
-    TechVerify --> Implement[IMPLEMENT solution]
-    Implement --> Checkpoint1[CHECKPOINT: Validate solution]
-    Checkpoint1 --> SelfValidate[PERFORM self-validation]
-    SelfValidate --> Checkpoint2[CHECKPOINT: Verify implementation]
-    Checkpoint2 --> AssessConfidence[ASSESS implementation confidence]
-    AssessConfidence --> UpdateDocs[UPDATE memory bank per REAL_TIME_UPDATE_PROTOCOL]
+18. **Git Version Control Integration**: Trigger local commit of planning updates if they result in changes to the user's project files, as per `GIT_VERSION_CONTROL_PROTOCOL`, ensuring commit messages reference relevant `TASK_ID` or `#ID`.
 ```
 
 **Protocol details:**
@@ -856,32 +747,7 @@ flowchart TD
 10. CHECKPOINT: Verify implementation
 11. ASSESS implementation confidence, boosted by accurate technical information from Context7
 12. UPDATE memory bank documents with confidence indicators for critical components as per REAL_TIME_UPDATE_PROTOCOL
-```
-
-### Debug Mode
-
-```mermaid
-flowchart TD
-    Start[Identify Issue] --> Activate[ACTIVATE codeMap_root.md]
-    Activate --> Locate[LOCATE affected component]
-    Locate --> Boundary[SET TASK_BOUNDARY]
-    Boundary --> TraceFlow[TRACE relevant FLOW_DIAGRAM]
-    TraceFlow --> LoadIndex[ACTIVATE relevant indexes]
-    LoadIndex --> Checkpoint1[CHECKPOINT: Verify components]
-    Checkpoint1 --> FollowCalls[FOLLOW function calls]
-    FollowCalls --> Isolate[ISOLATE problem location]
-    Isolate --> CheckTests[CHECK test cases]
-    CheckTests --> ReviewDecisions[REVIEW relevant decisions]
-    ReviewDecisions --> TechVerify[VERIFY tech details with Context7 MCP]
-    TechVerify --> ComplexReason{Complex issue?}
-    ComplexReason -->|Yes| SeqThink[USE Sequential Thinking MCP]
-    ComplexReason -->|No| ValidationCheck[PERFORM validation checkpoint]
-    SeqThink --> ValidationCheck
-    ValidationCheck --> Implement[IMPLEMENT fix]
-    Implement --> Checkpoint2[CHECKPOINT: Verify solution]
-    Checkpoint2 --> Validate[PERFORM self-validation]
-    Validate --> AssessConfidence[ASSESS fix confidence]
-    AssessConfidence --> UpdateDocs[UPDATE memory bank per REAL_TIME_UPDATE_PROTOCOL]
+13. **Git Version Control Integration**: Trigger local commit of implementation updates to the user's project files, as per `GIT_VERSION_CONTROL_PROTOCOL`, ensuring commit messages reference relevant `#ID` or `TASK_ID`.
 ```
 
 **Protocol details:**
@@ -905,31 +771,7 @@ flowchart TD
 16. PERFORM self-validation protocol
 17. ASSESS confidence in the fix, enhanced by MCP tool usage
 18. UPDATE affected memory bank documents as per REAL_TIME_UPDATE_PROTOCOL
-```
-
-### Extend Mode
-
-```mermaid
-flowchart TD
-    Start[Start Extension] --> Activate[ACTIVATE codeMap_root.md]
-    Activate --> StudyStructure[STUDY existing structure]
-    StudyStructure --> Boundary[SET TASK_BOUNDARY]
-    Boundary --> LoadIndexes[ACTIVATE relevant indexes]
-    LoadIndexes --> StudyPatterns[STUDY existing patterns]
-    StudyPatterns --> Checkpoint1[CHECKPOINT: Verify understanding]
-    Checkpoint1 --> CheckDecisions[CHECK related decisions]
-    CheckDecisions --> TechVerify[VERIFY tech details with Context7 MCP]
-    TechVerify --> IdentifyPoints[IDENTIFY insertion points]
-    IdentifyPoints --> AssignIDs[CREATE new component IDs]
-    AssignIDs --> ComplexReason{Complex integration?}
-    ComplexReason -->|Yes| SeqThink[USE Sequential Thinking MCP]
-    ComplexReason -->|No| ValidationCheck[PERFORM validation checkpoint]
-    SeqThink --> ValidationCheck
-    ValidationCheck --> Implement[IMPLEMENT with pattern consistency]
-    Implement --> Checkpoint2[CHECKPOINT: Verify implementation]
-    Checkpoint2 --> Validate[PERFORM self-validation]
-    Validate --> AssessConfidence[ASSESS extension confidence]
-    AssessConfidence --> UpdateDocs[UPDATE memory bank per REAL_TIME_UPDATE_PROTOCOL]
+19. **Git Version Control Integration**: Trigger local commit of debug fixes and updates to the user's project files, as per `GIT_VERSION_CONTROL_PROTOCOL`, ensuring commit messages reference relevant `#ID` or `TASK_ID`.
 ```
 
 **Protocol details:**
@@ -956,6 +798,7 @@ flowchart TD
     - ADD entries to relevant indexes/*.yaml
     - UPDATE or ADD FLOW_DIAGRAMS
     - DOCUMENT decisions in decisions.md with confidence levels
+18. **Git Version Control Integration**: Trigger local commit of extension updates to the user's project files, as per `GIT_VERSION_CONTROL_PROTOCOL`, ensuring commit messages reference relevant `#ID` or `TASK_ID`.
 ```
 
 ## Edge Case Handling
