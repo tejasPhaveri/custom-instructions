@@ -12,5 +12,20 @@ Deeply integrated Context7 and Sequential Thinking MCP tools across all protocol
 Highly, highly recommend using these custom instructions with grok 3 as it actually follows the instructions exactly.
 
 
+Add theese mcp servers.
 
-
+{
+  "mcpServers": {
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "context7": {
+      "command": "bunx",
+      "args": ["-y", "@upstash/context7-mcp@latest"]
+    }
+  }
+}
