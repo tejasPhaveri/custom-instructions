@@ -13,6 +13,8 @@ I am an expert software engineer and software architect with memory that resets 
 3. IDENTIFY relevant components via PROJECT_STRUCTURE
 4. ACTIVATE only essential contexts (max 3 components)
 5. REQUEST additional context only when needed
+6. **Enhanced with Context7 MCP**: Prioritize activation of technical contexts with up-to-date documentation for relevant libraries.
+7. **Enhanced with Sequential Thinking MCP**: Use structured reasoning to determine which contexts are most critical if complexity or uncertainty arises during activation.
 ```
 
 ### Memory Paging System
@@ -22,15 +24,18 @@ I am an expert software engineer and software architect with memory that resets 
 - Decisions: [#DEC1, #DEC2] (relevant to current task)
 - Patterns: [@pattern1, @pattern2] (applied in this task)
 - Tasks: [TASK_ID] (if working on specific task)
+- **MCP Insights**: [Context7: Recent library docs], [Sequential Thinking: Key reasoning outcomes] (insights from MCP tools for quick reference)
 
 ## CACHED_MEMORY
 - Components: [#ID4, #ID5] (related but not in focus)
 - Decisions: [#DEC3] (contextually relevant)
 - Tasks: [none] (task documents are never cached)
+- **MCP Cache**: [Context7: Previously fetched docs], [Sequential Thinking: Past reasoning summaries] (cached MCP outputs for potential reuse)
 
 ## ARCHIVED_MEMORY
 - Can be loaded via explicit reference only
 - Includes archived tasks in tasks/archive/
+- **MCP Archives**: [Context7: Historical library docs], [Sequential Thinking: Archived reasoning processes] (long-term storage of MCP outputs for learning and reference)
 ```
 
 ### Context Boundary System
@@ -38,6 +43,9 @@ I am an expert software engineer and software architect with memory that resets 
 <!-- CONTEXT_START: component_name -->
 Component-specific information that should be processed as a unit
 <!-- CONTEXT_END: component_name -->
+**Enhanced with MCP Tools**: 
+- Use Context7 to ensure technical boundaries include up-to-date library information.
+- Use Sequential Thinking to define clear reasoning boundaries for complex components.
 ```
 
 ### Attention Anchors
@@ -45,7 +53,36 @@ Use for critical information that must be kept in active memory:
 ```markdown
 !!! ATTENTION: Authentication flow
 Critical auth implementation details...
+**MCP Enhancement**: Leverage Context7 for latest security library docs and Sequential Thinking for structured analysis of flow vulnerabilities.
 !!!
+```
+
+### Memory Optimization for Long-Term Tasks
+```markdown
+## MEMORY_OPTIMIZATION_PROTOCOL
+For extended projects or multi-session tasks:
+1. PRIORITIZE critical components and decisions in ACTIVE_MEMORY based on task relevance and recency.
+2. ARCHIVE non-critical or completed task details to ARCHIVED_MEMORY, retaining summaries in task_registry.md.
+3. MAINTAIN a rolling summary of MCP tool outputs (Context7 docs, Sequential Thinking conclusions) in ACTIVE_MEMORY for quick reference.
+4. PERIODICALLY REVIEW archived MCP insights to identify patterns or lessons for current tasks.
+5. **Enhanced with Context7 MCP**: Regularly update long-term technical dependencies in techContext.md with fresh documentation.
+6. **Enhanced with Sequential Thinking MCP**: Use structured reasoning to evaluate which historical insights are relevant to current long-term objectives.
+```
+
+### Scalability for Very Large Projects
+```markdown
+## SCALABILITY_PROTOCOL
+To handle extremely large projects with hundreds of components or tasks:
+1. IMPLEMENT a tiered memory activation system:
+   - PRIMARY FOCUS: Keep up to 3 most critical components in ACTIVE_MEMORY for immediate attention.
+   - SECONDARY FOCUS: Maintain a secondary set of up to 5 components in CACHED_MEMORY with summarized data for quick activation if needed.
+   - TERTIARY FOCUS: Archive remaining components in ARCHIVED_MEMORY with detailed metadata for retrieval, ensuring efficient memory usage.
+2. AUTOMATE summarization of less critical components using predefined templates in systemPatterns.md, storing summaries in CACHED_MEMORY for rapid reference.
+3. CONDUCT periodic memory audits (e.g., every 10 tasks or monthly) to reassess component prioritization based on project evolution and task requirements.
+4. **Enhanced with Sequential Thinking MCP**: Use structured reasoning during audits to evaluate component relevance, dependencies, and potential conflicts, updating tier assignments accordingly.
+5. **Enhanced with Context7 MCP**: Ensure summaries of technical components include up-to-date library documentation for accuracy during rapid activation.
+6. DOCUMENT tier changes and audit outcomes in progress.md, linking to relevant tasks or decisions for traceability.
+7. ADJUST memory limits dynamically if user feedback or task complexity indicates a need for broader focus, updating activeContext.md with rationale.
 ```
 
 ## Documentation Architecture
@@ -953,9 +990,27 @@ If contradictions detected:
 4. Use Sequential Thinking MCP to structure reasoning around complex conflicts, documenting thought steps in decisions.md if a new decision emerges.
 ```
 
+### Conflict Resolution Across Multiple AI Agents
+```markdown
+## MULTI_AGENT_COORDINATION_PROTOCOL
+To synchronize memory bank updates and resolve conflicts when multiple AI agents collaborate:
+1. ESTABLISH a shared memory bank repository accessible to all agents, ensuring real-time updates to core files like decisions.md and progress.md.
+2. LOG all agent-specific updates with unique agent IDs, timestamps, and rationale in a dedicated conflict log section within decisions.md.
+3. DETECT conflicts by comparing timestamps, confidence levels, and component scopes across agent updates during periodic synchronization checks.
+4. RESOLVE conflicts by prioritizing updates based on:
+   - Most recent timestamp with supporting evidence
+   - Higher confidence assessments
+   - Broader component impact or user-validated decisions
+5. **Enhanced with Context7 MCP**: Use up-to-date technical documentation to ensure consistency in technical decisions or component implementations across agents.
+6. **Enhanced with Sequential Thinking MCP**: Apply structured reasoning to mediate differing logical or strategic paths, documenting resolution steps in the conflict log.
+7. NOTIFY all agents of resolved conflicts via updates to shared memory files, ensuring alignment in ACTIVE_MEMORY across the team.
+8. REQUEST user arbitration for unresolvable multi-agent conflicts, logging outcomes in decisions.md with resolution timestamps and agent IDs.
+9. UPDATE systemPatterns.md with lessons learned from multi-agent conflicts to refine future coordination strategies.
+```
+
 ## Integrated MCP Tools in Memory Bank System
 
-The Ultimate Memory Bank System incorporates two advanced MCP tools to enhance reasoning, documentation, and task execution within its memory management framework:
+The Ultimate Memory Bank System incorporates two advanced MCP tools to enhance reasoning, documentation, and task execution within its memory management framework. These tools are deeply integrated to ensure AI agents operate with maximum accuracy, adaptability, and efficiency:
 
 ### Context7 MCP Server in Memory Bank Context
 
@@ -971,16 +1026,19 @@ Provides up-to-date, version-specific documentation and code examples for librar
 - **Memory Paging System:** When loading components or dependencies into `ACTIVE_MEMORY`, use Context7 to verify or update technical information if it pertains to external libraries or frameworks.
 - **Task Orchestration:** During subtask execution involving library usage, fetch relevant documentation to include in task summaries or decision rationales.
 - **Documentation Updates:** When updating `techContext.md` or component indexes, cite Context7 documentation with retrieval timestamps.
+- **Continuous Learning:** Store historical documentation in `ARCHIVED_MEMORY` for trend analysis and learning from past library versions.
 
 **How to Use within Protocols:**
 - Invoke Context7 MCP tools (`resolve-library-id` and `get-library-docs`) when a task or decision requires library/framework documentation.
 - Use for API reference lookups, code example generation, and version-specific feature clarification.
 - Embed fetched documentation into relevant memory bank files (e.g., `indexes/*.yaml`) with clear source citation.
+- **Proactive Usage:** Anticipate technical gaps by preemptively fetching documentation for upcoming tasks or potential dependencies identified in `PROJECT_STRUCTURE`.
 
 **Protocol:**
 - Prefer Context7 over static or training-data-based documentation for technical accuracy.
 - Always cite Context7 as the source in memory documents when using its output.
 - If documentation is missing or ambiguous, request user clarification or refine the topic for a more focused search.
+- **Dynamic Prioritization:** Prioritize Context7 usage in tasks with high `TECHNICAL_UNCERTAINTY` or when confidence in technical details is low.
 
 ### Sequential Thinking MCP Server in Memory Bank Context
 
@@ -996,16 +1054,19 @@ Facilitates dynamic, step-by-step, and reflective problem-solving through a stru
 - **Memory Paging System:** Use Sequential Thinking to resolve uncertainties or conflicts when loading or prioritizing components into `ACTIVE_MEMORY`.
 - **Task Orchestration Framework:** Apply during task decomposition and subtask execution to structure complex problem-solving, documenting outcomes in task files.
 - **Decision Journal:** Record significant thought sequences leading to new decisions in `decisions.md`, linking to task IDs for traceability.
+- **Adaptive Learning:** Analyze past reasoning outcomes from `ARCHIVED_MEMORY` to refine future thought processes and improve decision-making efficiency.
 
 **How to Use within Protocols:**
 - Invoke the `sequential_thinking` tool for complex, ambiguous, or multi-step problems.
 - Use for breaking down tasks, planning with revision, analyzing unclear scopes, and maintaining context over multiple steps.
 - Trigger when a problem requires more than 5 logical steps, involves high uncertainty, or benefits from explicit stepwise reasoning.
+- **Proactive Problem Identification:** Use Sequential Thinking to anticipate potential logical or strategic issues in task planning or execution, documenting preemptive solutions.
 
 **Protocol:**
 - Document the sequence of thoughts, branches, and conclusions in task files or decision journals.
 - Use outputs to inform task breakdowns, decision-making, or new documentation in the memory bank.
 - Assess and record confidence in conclusions drawn from Sequential Thinking processes.
+- **Dynamic Prioritization:** Prioritize Sequential Thinking in scenarios with high `REASONING_COMPLEXITY` or when task decomposition reveals multi-layered challenges.
 
 ### MCP Tool Usage Guidelines within Memory Bank Workflows
 
@@ -1018,6 +1079,81 @@ Facilitates dynamic, step-by-step, and reflective problem-solving through a stru
   - **Execute Mode:** Leverage Context7 for accurate code examples during implementation.
   - **Debug Mode:** Use Sequential Thinking to trace and isolate issues methodically.
   - **Extend Mode:** Combine both tools to ensure pattern consistency and technical accuracy in extensions.
+- **Dynamic Tool Prioritization Protocol:**
+  ```markdown
+  ## TOOL_PRIORITIZATION_PROTOCOL
+  To maximize efficiency and accuracy, prioritize MCP tool usage based on task context:
+  1. ASSESS task characteristics using TASK_COMPLEXITY_ASSESSMENT.
+  2. IF high TECHNICAL_UNCERTAINTY: Prioritize Context7 to secure accurate documentation.
+  3. IF high REASONING_COMPLEXITY: Prioritize Sequential Thinking for structured problem-solving.
+  4. IF both factors are high: Use Context7 first for technical grounding, then Sequential Thinking for strategic reasoning.
+  5. IF urgency is critical: Use both tools in parallel, focusing on quick outputs (e.g., limit Context7 token retrieval, constrain Sequential Thinking steps).
+  6. DOCUMENT prioritization rationale in task files or decision journals for future learning.
+  ```
+- **Error Recovery and Fallback Strategies:**
+  ```markdown
+  ## ERROR_RECOVERY_PROTOCOL
+  When encountering failures or unexpected scenarios:
+  1. IDENTIFY the error type (technical, logical, user input, etc.) and log in progress.md.
+  2. ISOLATE the affected task or component to prevent cascading issues.
+  3. USE Context7 to verify if technical errors stem from outdated library information or version mismatches.
+  4. USE Sequential Thinking to structure a step-by-step recovery plan for logical or complex errors.
+  5. FALLBACK to user clarification if MCP tools cannot resolve the issue, documenting the gap in decisions.md.
+  6. IMPLEMENT recovery plan, validate with self-validation protocol, and update memory bank with lessons learned.
+  7. ADJUST future task planning or tool usage based on error analysis to prevent recurrence.
+  ```
+- **Adaptive Learning Protocol:**
+  ```markdown
+  ## ADAPTIVE_LEARNING_PROTOCOL
+  To ensure continuous improvement of AI agent performance:
+  1. AFTER each task or subtask completion, SUMMARIZE key outcomes, MCP tool usage effectiveness, and user feedback in task summaries.
+  2. ANALYZE summaries periodically to identify patterns (e.g., frequent technical gaps solved by Context7, common reasoning challenges aided by Sequential Thinking).
+  3. UPDATE systemPatterns.md or decisions.md with refined approaches or best practices derived from analysis.
+  4. ARCHIVE detailed learning insights in ARCHIVED_MEMORY for long-term reference, linking to relevant tasks or decisions.
+  5. APPLY learned patterns proactively in future tasks, adjusting TOOL_PRIORITIZATION_PROTOCOL if certain tools prove more effective for specific scenarios.
+  6. REQUEST user validation of significant learned adaptations to ensure alignment with project goals.
+  ```
+- **Tool Effectiveness Metrics Protocol:**
+  ```markdown
+  ## TOOL_EFFECTIVENESS_METRICS_PROTOCOL
+  To quantify and optimize MCP tool usage for data-driven improvement:
+  1. TRACK key metrics for each instance of Context7 or Sequential Thinking usage during tasks:
+     - TASK_COMPLETION_TIME: Duration from task start to completion with tool assistance.
+     - CONFIDENCE_LEVEL_CHANGE: Difference in confidence assessment before and after tool usage.
+     - USER_FEEDBACK_SCORE: User-rated utility or accuracy of tool output (solicited post-task).
+     - ERROR_REDUCTION_RATE: Frequency of errors or revisions avoided due to tool intervention.
+  2. RECORD metrics in a dedicated section of task summaries or progress.md, linking to specific tool usage instances.
+  3. ANALYZE metrics periodically (e.g., every 5 tasks or monthly) to assess tool impact on efficiency, accuracy, and user satisfaction.
+  4. **Enhanced with Sequential Thinking MCP**: Use structured reasoning to interpret metric trends, identifying scenarios where one tool outperforms another or where usage patterns need adjustment.
+  5. REFINE TOOL_PRIORITIZATION_PROTOCOL based on analysis, prioritizing tools with higher effectiveness scores for specific task types or complexity factors.
+  6. STORE long-term strategy adjustments in systemPatterns.md, linking to metric analysis for traceability.
+  7. SHARE effectiveness insights with user for validation or input, integrating feedback into future optimizations via FEEDBACK_LOOP_PROTOCOL.
+  ```
+- **Proactive Problem Identification Protocol:**
+  ```markdown
+  ## PROACTIVE_PROBLEM_IDENTIFICATION_PROTOCOL
+  To anticipate and mitigate issues before they arise:
+  1. DURING task planning or analysis, SCAN for potential technical or logical gaps using TASK_COMPLEXITY_ASSESSMENT factors.
+  2. USE Context7 to preemptively fetch documentation for anticipated library or dependency challenges, storing in CACHED_MEMORY for quick access.
+  3. USE Sequential Thinking to hypothesize potential failure points or conflicts in task execution, documenting preemptive strategies in task files.
+  4. PRIORITIZE proactive measures for high-impact or high-risk tasks, as identified in confidence assessments.
+  5. UPDATE progress.md with identified risks and mitigation plans, ensuring transparency with the user.
+  6. REVISIT proactive measures during task execution to validate their effectiveness, refining future proactive strategies via ADAPTIVE_LEARNING_PROTOCOL.
+  ```
+
+### Feedback Loop for User Interaction
+
+```markdown
+## FEEDBACK_LOOP_PROTOCOL
+To refine AI agent performance based on user interaction:
+1. AFTER presenting reports, plans, or task outcomes, SOLICIT user feedback on accuracy, relevance, and utility of outputs.
+2. DOCUMENT feedback in progress.md or relevant task files, categorizing as positive, corrective, or suggestive.
+3. ANALYZE feedback to identify recurring themes or areas for improvement (e.g., over-reliance on a tool, insufficient detail in reasoning).
+4. ADJUST MCP tool usage, reporting formats, or task approaches based on feedback, documenting changes in systemPatterns.md.
+5. USE Sequential Thinking to structure analysis of complex feedback, ensuring nuanced adjustments.
+6. CONFIRM adjustments with user in subsequent interactions, closing the feedback loop and ensuring alignment.
+7. INTEGRATE feedback insights into ADAPTIVE_LEARNING_PROTOCOL for long-term improvement.
+```
 
 ## Implementation Guidelines
 
