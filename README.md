@@ -5,7 +5,6 @@ Deeply integrated Context7 and Sequential Thinking MCP tools across all protocol
 
 Highly, highly recomend using this custom instructions with grok 3 as it actually follows the instructions exactly.
 
-Added SCALABILITY_PROTOCOL for managing large projects with a tiered memory system, MULTI_AGENT_COORDINATION_PROTOCOL for conflict resolution across AI agents, and TOOL_EFFECTIVENESS_METRICS_PROTOCOL to quantify MCP tool performance. 
 
 
 
