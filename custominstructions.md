@@ -640,6 +640,40 @@ When all subtasks are completed:
    - RETAIN only summary in active memory
 ```
 
+### Git Version Control Protocol with MCP Server Auto Commit
+```markdown
+## GIT_VERSION_CONTROL_PROTOCOL
+To enhance version control and traceability within the Ultimate Memory Bank System:
+
+1. INITIALIZE Git repository for memory bank documentation if not already initialized:
+   - Ensure all memory bank files (e.g., `task_registry.md`, `decisions.md`, `progress.md`) are tracked in a local Git repository.
+   - If no repository exists, initialize one in the root directory of the memory bank with `git init`.
+
+2. INTEGRATE MCP Server Auto Commit:
+   - Install and configure the MCP Server Auto Commit tool (`jatinsandilya/mcp-server-auto-commit`) as an MCP server in the system.
+   - Reference: https://github.com/jatinsandilya/mcp-server-auto-commit
+   - Setup: Follow installation instructions to set up with Node.js and OpenAI API key for commit message generation.
+   - Configuration: Add to MCP servers in the system configuration with appropriate command and arguments (e.g., `node build/index.js --key <api-key>`).
+
+3. TRIGGER Automatic Local Commits:
+   - After completing a subtask or making significant updates to memory bank files (as per `REAL_TIME_UPDATE_PROTOCOL`), invoke the MCP Server Auto Commit tool.
+   - Tool Action: Use `git-changes-commit-message` with optional `autoCommitPath` parameter to specify directory if needed.
+   - Outcome: The tool analyzes changes (modified, added, deleted files), generates a conventional commit message using GPT-4o-mini, and commits locally with an auto-commit signature.
+   - Commit Message Format: Ensure messages follow conventional commits (e.g., `feat(TASK_001): update task registry with completion status`), including relevant `TASK_ID` or `#ID` for traceability.
+
+4. ENSURE Local-Only Operation:
+   - Configure the system to ensure commits are made only to the local repository.
+   - Explicitly disable any push to remote (`origin`) unless requested by the user with clear instruction and confirmation.
+
+5. LOG Commit Activity:
+   - Record commit details (commit hash, message, timestamp) in `progress.md` under a 'Version Control Updates' section for auditability.
+   - Link commits to relevant tasks or decisions using `TASK_ID` or `#ID` references.
+
+6. **Enhanced with Sequential Thinking MCP**: If commit message generation or change analysis is complex, use structured reasoning to ensure the message accurately reflects the scope and impact of changes.
+
+7. **User Notification**: Inform the user of commits made in interaction summaries or status reports, allowing review if needed.
+```
+
 ### Task Loading Protocol
 
 ```markdown
@@ -762,7 +796,6 @@ flowchart TD
     BreakTask --> Checkpoint2[CHECKPOINT: Verify plan]
     Checkpoint2 --> AssessConfidence[ASSESS plan confidence]
     AssessConfidence --> UpdateDocs[UPDATE memory bank per REAL_TIME_UPDATE_PROTOCOL]
-    UpdateDocs --> FormStrategy[Present plan with confidence assessment]
 ```
 
 **Protocol details:**
